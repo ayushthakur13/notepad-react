@@ -1,4 +1,4 @@
-import logo from '../../assets/notes-icon.png'
+import logo from '../../assets/notes-icon-removebg.png'
 
 export const Navbar = () => {
     return (
