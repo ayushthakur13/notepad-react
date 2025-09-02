@@ -2,10 +2,11 @@ import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
 import { NotesCard } from "../../components/NotesCard";
 import { useNotes } from "../../context/notes-context";
+import { Footer } from "../../components/Footer";
 
 export const Home = () => {
 
-    const { title, text, notes, notesDispatch } = useNotes();
+    const { title, text, notes, archivedNotes, notesDispatch } = useNotes();
 
     const onTitleChange = (ev) => {
         notesDispatch({
@@ -30,17 +31,17 @@ export const Home = () => {
         })
     }
 
-    console.log(notes);
+    console.log(archivedNotes);
 
     const pinnedNotes = notes?.length > 0 && notes.filter(({ isPinned }) => isPinned);
     const otherNotes = notes?.length > 0 && notes.filter(({ isPinned }) => !isPinned);
 
     return (
-        <>
+        <div className="flex flex-col min-h-screen">
             <Navbar />
-            <main className="flex gap-3">
+            <main className="flex gap-3 flex-1 overflow-x-hidden">
                 <Sidebar />
-                <div className="flex flex-col w-screen">
+                <div className="flex flex-col flex-1">
                     <div className="mt-12 flex flex-col self-center w-[450px] relative">
                         <input value={title} onChange={onTitleChange} className="bg-white border border-neutral-800 rounded-t-md border-b-0 p-1 focus:outline-none" placeholder="Enter title" />            
                         <textarea value={text} onChange={onTextChange} className="bg-white h-[100px] border border-neutral-800 rounded-b-md border-t-0 p-1 focus:outline-none" placeholder="Enter text" />
@@ -106,6 +107,7 @@ export const Home = () => {
 
                 </div>
             </main>
-        </>
+            <Footer />
+        </div>
     )
 }
